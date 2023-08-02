@@ -1,0 +1,4 @@
+venv/
+elearning-html-template/
+/db.sqlite3
+*.pyc
