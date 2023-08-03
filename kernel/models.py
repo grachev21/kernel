@@ -2,10 +2,16 @@ from django.db import models
 
 
 class UserProfile(models.Model):
+    FLOOR = (
+                ('a', 'Мужчина'),
+                ('b', 'Женщина'),
+                ('c', 'Не выбрано')
+        )
+    floor = models.CharField(max_length=1, choices=FLOOR, default=c)
     name = models.CharField(max_length=100)
     surname = models.CharField(max_length=100)
-    floor = models.
     height = models.IntegerField()
+    user_name = models.CharField(max_length=100)
     
 class Jog(models.Model):
     type_run = models.IntegerField()
@@ -19,7 +25,7 @@ class UserCard(models.Model):
     weight = models.integerField()
     comment = models.TextField(blank=True)
     type_run = models.ForeignKey(Jog, on_delete=models.PROTECT)
-
+    user = models.ForeignKey(UserProfile, on_delete=models.PROTECT) 
 
 # Обобщенные данные
 class TotalInformation(models.Model):
@@ -28,6 +34,7 @@ class TotalInformation(models.Model):
     total_calorie_expenditure =
     total_number_runs =
     type_run = models.ForeignKey(Jog, on_delete=models.PROTECT)
+    user = models.ForeignKey(UserProfile, on_delete=models.PROTECT) 
 
 
 # Данные за год
@@ -38,6 +45,7 @@ class YearlyData(models.Model):
     calories = models.IntegerField()
     number_runs = models.IntegerField()
     type_run = models.ForeignKey(Jog, on_delete=models.PROTECT)
+    user = models.ForeignKey(UserProfile, on_delete=models.PROTECT) 
 
 
 # Данные за месяц
@@ -48,6 +56,7 @@ class MonthlyData(models.Model):
     calories = models.IntegerField()
     number_runs = models.IntegerField()
     type_run = models.ForeignKey(Jog, on_delete=models.PROTECT)
+    user = models.ForeignKey(UserProfile, on_delete=models.PROTECT) 
 
 # Данные за неделю
 class WeeklyData(models.Model):
@@ -57,6 +66,7 @@ class WeeklyData(models.Model):
     calories = models.IntegerField()
     number_runs = models.IntegerField()
     type_run = models.ForeignKey(Jog, on_delete=models.PROTECT)
+    user = models.ForeignKey(UserProfile, on_delete=models.PROTECT) 
 
 # Данные за день
 class DataPay(models.Model):
@@ -66,11 +76,4 @@ class DataPay(models.Model):
     calories = models.IntegerField()
     number_runs = models.IntegerField()
     type_run = models.ForeignKey(Jog, on_delete=models.PROTECT)
-
-
-
-
-
-
-    
-
+    user = models.ForeignKey(UserProfile, on_delete=models.PROTECT) 
